@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-<template T, int ListSize>
+template <class T, int ListSize>
 class List
 {
 private:
