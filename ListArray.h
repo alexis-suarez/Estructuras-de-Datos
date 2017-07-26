@@ -9,7 +9,7 @@ class List
 {
 private:
 
-    T Data[ListSize]
+    T Data[ListSize];
     unsigned Last;
     unsigned Size;
 
@@ -50,6 +50,8 @@ public:
     T& Bottom();
     T& Front();
 
+    void Print();
+
 };
 
 template <class T, int ListSize>
@@ -60,7 +62,7 @@ inline List<T, ListSize>::List()
 }
 
 template <class T, int ListSize>
-inline List<T, ListSize>::List(List& List) : List()
+inline List<T, ListSize>::List(List& List)
 {
     int i = 0;
 
@@ -88,13 +90,13 @@ inline unsigned List<T, ListSize>::Count()
 template <class T, int ListSize>
 inline bool List<T, ListSize>::IsEmpty()
 {
-    return this->Last == -1;
+    return this->Last == - 1;
 }
 
 template <class T, int ListSize>
 inline bool List<T, ListSize>::IsFull()
 {
-    return this->Last == Size -1;
+    return this->Last == ListSize - 1;
 }
 
 template <class T, int ListSize>
@@ -118,17 +120,18 @@ template <class T, int ListSize>
 inline void List<T, ListSize>::Insert(int Pos, T& Value)
 {
     if (this->IsFull()) {
-        throw std::exception().what();
+        throw std::exception();
     }
 
-    if (Pos < 0 or Pos > this->Last + 1) {
-        throw std::exception().what();
+    if (Pos < -1 || Pos > this->Last) {
+        throw std::exception();
     }
 
     int i = this->Last;
 
     while (i > Pos) {
         this->Data[i] = this->Data[i - 1];
+        i--;
     }
 
     this->Data[Pos + 1] = Value;
@@ -165,11 +168,11 @@ template <class T, int ListSize>
 inline void List<T, ListSize>::Delete(int Pos)
 {
     if (this->IsEmpty()) {
-        throw std::exception().what();
+        throw std::exception();
     }
 
-    if (Pos < -1 or Pos > this->Last) {
-        throw std::exception().what();
+    if (Pos < -1 || Pos > this->Last) {
+        throw std::exception();
     }
 
     int i = Pos;
@@ -234,7 +237,7 @@ inline int List<T, ListSize>::LastPos()
 template <class T, int ListSize>
 inline int List<T, ListSize>::PrevPos(int Pos)
 {
-    if (this->IsEmpty() or Pos < 1 or Pos > this->Last) {
+    if (this->IsEmpty() || Pos < 1 || Pos > this->Last) {
         return -1;
     }
 
@@ -244,7 +247,7 @@ inline int List<T, ListSize>::PrevPos(int Pos)
 template <class T, int ListSize>
 inline int List<T, ListSize>::NextPos(int Pos)
 {
-    if (this->IsEmpty() or Pos < 0 or Pos > this->Last - 1) {
+    if (this->IsEmpty() || Pos < 0 || Pos > this->Last - 1) {
         return -1;
     }
 
@@ -269,11 +272,11 @@ template <class T, int ListSize>
 inline T& List<T, ListSize>::Retrieve(int Pos)
 {
     if (this->IsEmpty()) {
-        throw std::exception().what();
+        throw std::exception();
     }
 
     if (Pos < 0 and Pos > this->Last) {
-        throw std::exception().what();
+        throw std::exception();
     }
 
     return this->Data[Pos];
@@ -306,6 +309,17 @@ inline T& List<T, ListSize>::Front()
 {
     if (!this->IsEmpty()) {
         return this->Data[0];
+    }
+}
+
+template <class T, int ListSize>
+inline void List<T, ListSize>::Print()
+{
+    int i = 0;
+
+    while (i < this->Count()) {
+        std::cout << this->Data[i] << std::endl;
+        i++;
     }
 }
 
