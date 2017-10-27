@@ -20,7 +20,7 @@ public:
     Node(T&);
     ~Node();
 
-    T* GetData();
+    T& GetData();
     T*& GetDataPtr();
 
     Node<T>* GetNext();
@@ -57,7 +57,7 @@ inline Node<T>::~Node()
 }
 
 template <class T>
-inline T* Node<T>::GetData()
+inline T& Node<T>::GetData()
 {
     if (this->Data == nullptr) { throw std::exception(); }
 
