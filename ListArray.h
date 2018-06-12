@@ -179,6 +179,7 @@ inline void List<T, ListSize>::Delete(int Pos)
 
     while (i < this->Last) {
         this->Data[i] = this->Data[i + 1];
+        i++;
     }
 
     this->Last--;
